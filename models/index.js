@@ -1,27 +1,31 @@
 var fs        = require('fs')
   , path      = require('path')
   , Sequelize = require('sequelize')
+  , restful   = require('sequelize-restful-extended')
   , lodash    = require('lodash')
   , db        = {};
 
 require('sequelize-hierarchy')(Sequelize);
 
-sequelize = new Sequelize('emethma', 'root', '', {
-  host: 'localhost',
-  dialect:  'mysql',
-  protocol: 'mysql',
-  logging: false,
-  port:    3306 // or 5432 (for postgres),
-});
-/*
-sequelize = new Sequelize('emethma', 'root', 'Yamil12345', {
-  host: 'rideqro.ck55xvcjczse.us-west-2.rds.amazonaws.com',
-  dialect:  'mysql',
-  logging: false,
-  protocol: 'mysql',
-  port:    3306 // or 5432 (for postgres),
-});
-*/
+if (process.env.NODE_ENV == 'production'){
+  console.log('Production');
+  sequelize = new Sequelize('emethma', 'uaq', 'uaq12345', {
+    host: 'uaq2.ckxbcbonrr8q.us-west-2.rds.amazonaws.com', 
+    dialect:  'mysql',
+    logging: false,
+    protocol: 'mysql',
+    port:    3306 // or 5432 (for postgres),
+  });
+} else {
+  console.log('Development');
+  sequelize = new Sequelize('emethma', 'root', '', {
+    host: 'localhost',
+    dialect:  'mysql',
+    protocol: 'mysql',
+    logging: false,
+    port:    3306 // or 5432 (for postgres),
+  });
+}
  
 // Cargar todos los modelos
 fs
