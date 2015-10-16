@@ -1,33 +1,12 @@
 var fs        = require('fs')
   , path      = require('path')
   , Sequelize = require('sequelize')
-<<<<<<< HEAD
-=======
   , restful   = require('sequelize-restful-extended')
->>>>>>> aebff0f07ed36f76893b46e123a2b192d7bb5c48
   , lodash    = require('lodash')
   , db        = {};
 
 require('sequelize-hierarchy')(Sequelize);
 
-<<<<<<< HEAD
-sequelize = new Sequelize('emethma', 'root', '', {
-  host: 'localhost',
-  dialect:  'mysql',
-  protocol: 'mysql',
-  logging: false,
-  port:    3306 // or 5432 (for postgres),
-});
-/*
-sequelize = new Sequelize('emethma', 'root', 'Yamil12345', {
-  host: 'rideqro.ck55xvcjczse.us-west-2.rds.amazonaws.com',
-  dialect:  'mysql',
-  logging: false,
-  protocol: 'mysql',
-  port:    3306 // or 5432 (for postgres),
-});
-*/
-=======
 if (process.env.NODE_ENV == 'production'){
   console.log('Production');
   sequelize = new Sequelize('emethma', 'uaq', 'uaq12345', {
@@ -47,7 +26,6 @@ if (process.env.NODE_ENV == 'production'){
     port:    3306 // or 5432 (for postgres),
   });
 }
->>>>>>> aebff0f07ed36f76893b46e123a2b192d7bb5c48
  
 // Cargar todos los modelos
 fs
@@ -70,8 +48,4 @@ Object.keys(db).forEach(function(modelName) {
 module.exports = lodash.extend({
   sequelize: sequelize,
   Sequelize: Sequelize
-<<<<<<< HEAD
 }, db);
-=======
-}, db);
->>>>>>> aebff0f07ed36f76893b46e123a2b192d7bb5c48
