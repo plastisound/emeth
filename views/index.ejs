@@ -347,6 +347,7 @@ window.onload = function () {
     				animateSelector(selected);
 
 	    			this.data('selected').attr({opacity:1,stroke:'#09F'});
+	    			alert( this.data('selected').children.length );
 	    			directo_id = this;
 	    			$('#parentId').val('');
 	    			$('#parentId').trigger('change');
@@ -442,7 +443,6 @@ window.onload = function () {
 				El nodo es nuevo y aún no se completa su registro
 		*/
 		if(root){
-		  alert(root['children'].length);
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
 					var shape = rjs.getByClass(root['node']);
@@ -456,7 +456,6 @@ window.onload = function () {
 		if(root['children']){
 			root['children'].some(function(s){
 				if(s){
-				  alert(s['children'].length);
 					if(s['children'].length<2){
 						if(s['node']!=='---'){
 							var shape = rjs.getByClass(s['node']);
