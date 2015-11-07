@@ -411,7 +411,7 @@ window.onload = function () {
 	    		if(this.data('selected').attr('opacity')!=1)
 	    			this.data('selected').attr({opacity:0});
 	    	});
-	    nodo.node.setAttribute("class",root.node);
+	    nodo.node.setAttribute("class",root.id);
 
 	    // Todo se dibuja aquí en base a los parametros del nodo
 	    var st = rjs.set();
@@ -448,8 +448,7 @@ window.onload = function () {
 		if(root){
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
-				alert(root['id']);
-					var shape = rjs.getByClass(root['node']);
+					var shape = rjs.getByClass(root['id']);
 					shape.some(function(x){
 						x.data('enabled',true)
 							.attr({'stroke-dasharray':'.'});
@@ -463,7 +462,7 @@ window.onload = function () {
 				if(s){
 					if(s['children'].length<2){
 						if(s['node']!=='---'){
-							var shape = rjs.getByClass(s['node']);
+							var shape = rjs.getByClass(s['id']);
 							shape.some(function(x){
 								x.data('enabled',true)
 									.attr({'stroke-dasharray':'.'});
