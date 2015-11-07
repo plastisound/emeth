@@ -445,7 +445,7 @@ window.onload = function () {
 		if(root){
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
-				alert(root['node']);
+				alert(root['id']);
 					var shape = rjs.getByClass(root['node']);
 					shape.some(function(x){
 						x.data('enabled',true)
