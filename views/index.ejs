@@ -1,5 +1,5 @@
 <% include header %> 
-<% include navbar %>
+<% include navbar %> 
 
 <script type="text/javascript">
 // TREE
@@ -315,7 +315,7 @@ window.onload = function () {
 	    }
 		// Circle
 		var nodo = rjs.circle( (root.x * rw) + marginW+(r/2) , (depth * rh) +marginH , r)
-	    	//.attr({stroke:'#57d1b7',fill:'url("/images/profile.jpg")','stroke-width':3})
+	   ñ 	//.attr({stroke:'#57d1b7',fill:'url("/images/profile.jpg")','stroke-width':3})
 	    	.attr({stroke:takeFillColor(depth),fill:'#FFF','stroke-width':4,'cursor':'pointer'})
 	    	.data('node',root)
 	    	.data('selected',selected)
@@ -650,6 +650,7 @@ window.onload = function () {
 	    for (var i = 0; i < arry.length; i++)
 	    {
 	        var children = arry[i];
+	        
 	        buildNodeRecursive(rootNode, children.children);
 	    }
 	    return rootNode;
