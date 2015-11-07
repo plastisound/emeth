@@ -360,7 +360,8 @@ window.onload = function () {
 	    			$('#directo_id').trigger('change');
 	    			// Get L || R position
 	    			alert(this.data('node').position);
-	    			alert(this.data('node').parent);
+	    			if(this.data('node').parent.position)
+	    			alert(this.data('node').parent.position);
 	    			// add global directo
 	    			// Load User Data
     				$('#btnLoad').click();
