@@ -445,6 +445,7 @@ window.onload = function () {
 		if(root){
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
+				alert(root['node']);
 					var shape = rjs.getByClass(root['node']);
 					shape.some(function(x){
 						x.data('enabled',true)
@@ -453,6 +454,7 @@ window.onload = function () {
 				}
 			}
 		}
+		/* Funcion recursiva marca y permite la seleccion de nodos con menos de dos hijos */
 		if(root['children']){
 			root['children'].some(function(s){
 				if(s){
