@@ -234,7 +234,7 @@ var second_walk = function(v, m, depth, min){
 
 <script type="text/javascript">
 // Initial selected nodes
-var parent_id, directo_id;
+var parent_id, directo_id; // RaphaelJS objects
 
 window.onload = function () {
 	//rjs = Raphael("chartDiv");
@@ -347,7 +347,7 @@ window.onload = function () {
     				animateSelector(selected);
 
 	    			this.data('selected').attr({opacity:1,stroke:'#09F'});
-	    			alert( this);
+	    			alert( this.data('node').children.length);
 	    			directo_id = this;
 	    			$('#parentId').val('');
 	    			$('#parentId').trigger('change');
