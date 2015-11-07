@@ -326,7 +326,6 @@ window.onload = function () {
 	    	.data('node',root)
 	    	.data('selected',selected)
 	    	.click(function(e){
-	    	  alert(this.data('node').position);
 	    		// Si ya ha seleccionado ambos limpiar
 	    		if((directo_id) && (parent_id)){
 		    		directo_id.data('selected').attr({opacity:0,stroke:'#09F'});
@@ -359,6 +358,8 @@ window.onload = function () {
 	    			var vamos = findNode(directo_id.data('node')['node'],trees);
 	    			$('#directo_id').val(vamos['id']);
 	    			$('#directo_id').trigger('change');
+	    			// Get L || R position
+	    			alert(this.data('parent').data('node').position);
 	    			// add global directo
 	    			// Load User Data
     				$('#btnLoad').click();
