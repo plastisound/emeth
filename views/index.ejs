@@ -320,13 +320,16 @@ window.onload = function () {
 	    	.data('node',root)
 	    	.data('selected',selected)
 	    	.click(function(e){
+	    		// 
 	    		if((directo_id) && (parent_id)){
+	    		  alert(1);
 		    		directo_id.data('selected').attr({opacity:0,stroke:'#09F'});
 					directo_id = null;
 					parent_id.data('selected').attr({opacity:0,stroke:'#09F'});
 					parent_id = null;
 				}
     			if(!directo_id){
+    			  alert(2);
     				// Eliminar nuevo
     				if(findNode('---',trees)!==false){
 						removeNode('---',trees);
@@ -356,6 +359,7 @@ window.onload = function () {
 	    			drawEnabled(root);
     			} else {
     				if(!parent_id){
+    				  alert(3);
     					//if(this!=directo_id){
     					if(this.data('enabled')){
 							this.data('selected').attr({opacity:1,stroke:'#F00'});
