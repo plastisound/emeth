@@ -19,10 +19,13 @@ Tree.prototype.__repr__ = function(){
     return this.node
 };
 
+var ai_tree = 1; //Auto incrementable node
 var DrawTree = function(tree, parent, depth, number){
     parent = (parent) ? parent : null;
     depth = (depth) ? depth : 0;
     number = (number) ? number : 1;
+    this.id = ai_tree;
+    ai_tree++;
     this.x = -1;
     this.node = tree.node;
     this.y = depth;
@@ -445,7 +448,7 @@ window.onload = function () {
 		if(root){
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
-				alert(root['mod']);
+				alert(root['id']);
 					var shape = rjs.getByClass(root['node']);
 					shape.some(function(x){
 						x.data('enabled',true)
