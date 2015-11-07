@@ -326,7 +326,7 @@ window.onload = function () {
 	    	.data('node',root)
 	    	.data('selected',selected)
 	    	.click(function(e){
-	    	  alert(this.data('node'));
+	    	  alert(this.data('node').position);
 	    		// Si ya ha seleccionado ambos limpiar
 	    		if((directo_id) && (parent_id)){
 		    		directo_id.data('selected').attr({opacity:0,stroke:'#09F'});
