@@ -20,7 +20,7 @@ Tree.prototype.__repr__ = function(){
 };
 
 var ai_tree = 1; //Auto incrementable node
-var DrawTree = function(tree, parent, depth, number){
+var DrawTree = function(tree, parent, depth, number,position){
     parent = (parent) ? parent : null;
     depth = (depth) ? depth : 0;
     number = (number) ? number : 1;
@@ -29,10 +29,13 @@ var DrawTree = function(tree, parent, depth, number){
     this.x = -1;
     this.node = tree.node;
     this.y = depth;
+    this.position = position;
     //this.children = [DrawTree(c, self, depth+1, i+1) for i, c in enumerate(tree.children)]
     this.children = [];
-    for(var i in tree.children)
-        this.children.push(new DrawTree(tree.children[i],this,depth+1,i++) );
+    for(var i in tree.children){
+        // Check L || R with var i
+        this.children.push(new DrawTree(tree.children[i],this,depth+1,i++,i) );
+    }
     this.parent = parent;
     this.thread = null;
     this.mod = 0;
@@ -323,7 +326,8 @@ window.onload = function () {
 	    	.data('node',root)
 	    	.data('selected',selected)
 	    	.click(function(e){
-	    		// 
+	    	  alert(this.data('node'));
+	    		// Si ya ha seleccionado ambos limpiar
 	    		if((directo_id) && (parent_id)){
 		    		directo_id.data('selected').attr({opacity:0,stroke:'#09F'});
 					directo_id = null;
