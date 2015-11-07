@@ -325,7 +325,6 @@ window.onload = function () {
 	    	.click(function(e){
 	    		// 
 	    		if((directo_id) && (parent_id)){
-	    		  alert(1);
 		    		directo_id.data('selected').attr({opacity:0,stroke:'#09F'});
 					directo_id = null;
 					parent_id.data('selected').attr({opacity:0,stroke:'#09F'});
@@ -350,7 +349,6 @@ window.onload = function () {
     				animateSelector(selected);
 
 	    			this.data('selected').attr({opacity:1,stroke:'#09F'});
-	    			alert( this.data('node').children.length);
 	    			directo_id = this;
 	    			$('#parentId').val('');
 	    			$('#parentId').trigger('change');
@@ -363,7 +361,6 @@ window.onload = function () {
 	    			drawEnabled(root);
     			} else {
     				if(!parent_id){
-    				  alert(3);
     					//if(this!=directo_id){
     					if(this.data('enabled')){
 							this.data('selected').attr({opacity:1,stroke:'#F00'});
