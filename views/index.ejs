@@ -328,11 +328,10 @@ window.onload = function () {
 					parent_id.data('selected').attr({opacity:0,stroke:'#09F'});
 					parent_id = null;
 				}
+				  //Asignar directo y marcar posibles hijos
     			if(!directo_id){
-    			  alert(2);
     				// Eliminar nuevo
     				if(findNode('---',trees)!==false){
-    				/*
 						removeNode('---',trees);
     					redrawAll();
 
@@ -342,7 +341,6 @@ window.onload = function () {
 					    selected = rjs.rect((root.x * rw) + 14 , (depth * rh) + 6,84,84)
 							.attr({stroke:selectStroke,opacity:opacity,'stroke-width':4,r:'10',fill:'#09F','stroke-dasharray':''});
 					    	animateSelector(selected);
-					    	*/
 
     				}
     				removeNode('---',trees);
@@ -444,6 +442,7 @@ window.onload = function () {
 				El nodo es nuevo y aún no se completa su registro
 		*/
 		if(root){
+		  alert(root['children'].length);
 			if(root['children'].length<2){
 				if(root['node']!=='---'){
 					var shape = rjs.getByClass(root['node']);
@@ -457,6 +456,7 @@ window.onload = function () {
 		if(root['children']){
 			root['children'].some(function(s){
 				if(s){
+				  alert(s['children'].length);
 					if(s['children'].length<2){
 						if(s['node']!=='---'){
 							var shape = rjs.getByClass(s['node']);
