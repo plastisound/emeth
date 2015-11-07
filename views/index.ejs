@@ -449,8 +449,9 @@ window.onload = function () {
 				Ya existe un binario
 				El nodo es nuevo y aún no se completa su registro
 		*/
+		var maxnodes = 3;
 		if(root){
-			if(root['children'].length<2){
+			if(root['children'].length<maxnodes){
 				if(root['node']!=='---'){
 					var shape = rjs.getByClass(root['id']);
 					shape.some(function(x){
@@ -464,7 +465,7 @@ window.onload = function () {
 		if(root['children']){
 			root['children'].some(function(s){
 				if(s){
-					if(s['children'].length<2){
+					if(s['children'].length<maxnodes){
 						if(s['node']!=='---'){
 							var shape = rjs.getByClass(s['id']);
 							shape.some(function(x){
