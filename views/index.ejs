@@ -359,14 +359,15 @@ window.onload = function () {
 	    			$('#directo_id').val(vamos['id']);
 	    			$('#directo_id').trigger('change');
 	    			// Get L || R position
-	    			alert(this.data('node').position);
+	    			//alert(this.data('node').position);
 	    			if(this.data('node').parent.position)
-	    			alert(this.data('node').parent.position);
+	    			//alert(this.data('node').parent.position);
 	    			// add global directo
 	    			// Load User Data
     				$('#btnLoad').click();
 	    			drawEnabled(root);
     			} else {
+    			  // Crear hijo
     				if(!parent_id){
     					//if(this!=directo_id){
     					if(this.data('enabled')){
@@ -586,6 +587,8 @@ window.onload = function () {
 	var addNode = function(node){
 		drawPaper();
 		var arr = findNode(node,trees);
+		// Verificar si el nodo sera donado 
+		alert(arr.children.length);
 		arr.children.push(new Tree('---',-1));
 		redrawAll();
 	}
