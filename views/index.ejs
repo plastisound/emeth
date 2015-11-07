@@ -587,10 +587,11 @@ window.onload = function () {
 	var addNode = function(node){
 		drawPaper();
 		var arr = findNode(node['node'],trees);
-		var arrparent = findNode(node['parent'],trees);
+		//var arrparent = findNode(node['parent'],trees);
 		// Verificar si el nodo sera donado 
 		alert(arr.children.length);
-		alert(arrparent.children.length);
+		//alert(arrparent.children.length);
+		alert(JSON.stringify(node));
 		arr.children.push(new Tree('---',-1));
 		redrawAll();
 	}
