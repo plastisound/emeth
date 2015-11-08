@@ -591,12 +591,22 @@ window.onload = function () {
 		var hijos = arr.children.length;
 		var pos = node.parent.position;
 		if(hijos>=2){
-		  arr.children[pos-1].children.push(new Tree('---',-1));
-		  //TODO: Agregar data para almacenar si sera L o R (posicion)
+		//TODO: Insertar nodo en posicion correspondiente L o R hasta abajo
+		  addNodeLast(arr);
 		} else {
 		  arr.children.push(new Tree('---',-1));
 		}
 		redrawAll();
+	}
+	
+	var addNodeLast = function(arr,pos) {
+	  if((arr) && (pos)){
+	    if(arr.children[pos-1].children.length>0){
+	      addNodeLast(arr.children[pos-1]);
+	    } else {
+	      arr.children[pos-1].children.push(new Tree('---',-1));
+	    }
+	  }
 	}
 
 	// Demo Tree
