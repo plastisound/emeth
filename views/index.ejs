@@ -602,9 +602,8 @@ window.onload = function () {
 	var addNodeLast = function(arr,pos) {
 	  if((arr) && (pos)){
 	    if(arr.children[pos-1].children.length>0){
-	      addNodeLast(arr.children[pos-1]);
+	      addNodeLast(arr.children[pos-1],pos);
 	    } else {
-	    alert(55);
 	      arr.children[pos-1].children.push(new Tree('---',-1));
 	    }
 	  }
