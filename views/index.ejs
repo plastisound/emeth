@@ -586,8 +586,8 @@ window.onload = function () {
 		drawPaper();
 		var arr = findNode(node['node'],trees);
 		var hijos = arr.children.length;
-		var pos = (node.parent.position) ? node.parent.position : arr.position;
-		alert(arr.position);
+		var pos = (node.parent.position) ? node.parent.position : node.position;
+		alert(node.position);
 		if(hijos>=2){
 		  addNodeLast(arr,pos);
 		} else {
