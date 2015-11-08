@@ -587,7 +587,6 @@ window.onload = function () {
 		var arr = findNode(node['node'],trees);
 		var hijos = arr.children.length;
 		var pos = (node.parent.position) ? node.parent.position : node.position;
-		alert(pos);
 		if(hijos>=2){
 		  addNodeLast(arr,pos);
 		} else {
@@ -598,10 +597,9 @@ window.onload = function () {
 	//Insertar nodo en posicion correspondiente L o R respecto a al nodo padre hasta abajo
 	var addNodeLast = function(arr,pos) {
 	  if((arr) && (pos)){
-	    if(arr.children[pos-1].children.length>0){
+	    if(arr.children[pos-1].children.length>=2){
 	      addNodeLast(arr.children[pos-1],pos);
 	    } else {
-	      alert(77);
 	      arr.children[pos-1].children.push(new Tree('---',-1));
 	    }
 	  }
