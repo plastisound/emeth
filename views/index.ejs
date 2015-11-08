@@ -592,7 +592,7 @@ window.onload = function () {
 		var pos = node.parent.position;
 		if(hijos>=2){
 		//TODO: Insertar nodo en posicion correspondiente L o R hasta abajo
-		  addNodeLast(arr);
+		  addNodeLast(arr,pos);
 		} else {
 		  arr.children.push(new Tree('---',-1));
 		}
