@@ -587,7 +587,7 @@ window.onload = function () {
 		var arr = findNode(node['node'],trees);
 		var hijos = arr.children.length;
 		var pos = (node.parent.position) ? node.parent.position : node.position;
-		alert(node.position);
+		alert(pos);
 		if(hijos>=2){
 		  addNodeLast(arr,pos);
 		} else {
