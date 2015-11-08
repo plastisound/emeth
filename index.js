@@ -237,7 +237,7 @@ app.get('/api/getUser',function(req,res,next){
 });
 
 app.get('/api/makeRandomUsers',function(req,res,next) {
-  res.json(randomInt(1,2) );
+  res.json(randomInt(1,3) );
 })
 
 // Con modulo jerarquico 
