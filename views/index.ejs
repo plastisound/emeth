@@ -360,8 +360,6 @@ window.onload = function () {
 	    			$('#directo_id').trigger('change');
 	    			// Get L || R position
 	    			//alert(this.data('node').position);
-	    			if(this.data('node').parent.position)
-	    			//alert(this.data('node').parent.position);
 	    			// add global directo
 	    			// Load User Data
     				$('#btnLoad').click();
@@ -587,18 +585,16 @@ window.onload = function () {
 	var addNode = function(node){
 		drawPaper();
 		var arr = findNode(node['node'],trees);
-		// Verificar si el nodo sera donado 
 		var hijos = arr.children.length;
 		var pos = node.parent.position;
 		if(hijos>=2){
-		//TODO: Insertar nodo en posicion correspondiente L o R hasta abajo
 		  addNodeLast(arr,pos);
 		} else {
 		  arr.children.push(new Tree('---',-1));
 		}
 		redrawAll();
 	}
-	
+	//Insertar nodo en posicion correspondiente L o R respecto a al nodo padre hasta abajo
 	var addNodeLast = function(arr,pos) {
 	  if((arr) && (pos)){
 	    if(arr.children[pos-1].children.length>0){
