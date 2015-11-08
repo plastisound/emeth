@@ -126,6 +126,10 @@ searchInJson = function(obj,searchField, searchVal){
 	return results;
 }
 
+randomInt = function(low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+}
+
 app.use(cookieSession({
     keys: ['secret1']
 }));
@@ -231,6 +235,10 @@ app.get('/api/getUser',function(req,res,next){
 		res.json(items);
 	});
 });
+
+app.get('/api/makeRandomUsers',function(req,res,next) {
+  res.json(randomInt(1,2) );
+})
 
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
