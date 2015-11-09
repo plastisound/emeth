@@ -259,7 +259,7 @@ var rootUsuario = function(){
 		numeroTransferencia:'4444444444',
 		parentId:null,
 		directo_id:null,
-		rol:1
+		rol:2
   	};
 }
 
@@ -307,6 +307,7 @@ var truncateUsuario = function(cb){
 app.get('/api/makeRandomUsers',function(req,res,next) {
   var count = 10;
   truncateUsuario(function(){
+  		req.logout();
   		var Promise = db.Sequelize.Promise;
 		db['usuario'].create(rootUsuario()).then(function(usuario){
 			var random = randomInt(1,4);
