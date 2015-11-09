@@ -259,7 +259,8 @@ var rootUsuario = function(){
 		numeroTransferencia:'4444444444',
 		parentId:null,
 		directo_id:null,
-		rol:2
+		rol:2,
+		children:null
   	};
 }
 
@@ -285,7 +286,8 @@ var fakeUsuario = function(){
 		numeroTransferencia:'4444444444',
 		parentId:null,
 		directo_id:null,
-		rol:1
+		rol:1,
+		children:null
   	};
 }
 
@@ -331,6 +333,23 @@ app.get('/api/makeRandomUsers',function(req,res,next) {
 			});
 	  	});
   	});
+});
+
+app.get('/api/makeRandomUsersJSON',function(req,res,next) {
+  var count = 10;
+  var arbol = [];
+  arbol.push(rootUsuario());
+  var random = randomInt(1,4);
+  for (var j = 0; j < random; j++) {
+    var userData = fakeUsuario();
+    userData['directo_id'] = usuario['id'];
+    userData['parentId'] = usuario['id'];
+    if(j>=2){
+      arbol[0]['chileren'][0]['children'].push(userData);
+    } else {
+      arbol[0]['chileren'].push(userData);
+    }
+  }
 });
 
 // Con modulo jerarquico 
