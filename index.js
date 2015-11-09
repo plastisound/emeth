@@ -342,8 +342,8 @@ app.get('/api/makeRandomUsersJSON',function(req,res,next) {
   var random = randomInt(1,4);
   for (var j = 0; j < random; j++) {
     var userData = fakeUsuario();
-    userData['directo_id'] = usuario['id'];
-    userData['parentId'] = usuario['id'];
+    //userData['directo_id'] = usuario['id'];
+    //userData['parentId'] = usuario['id'];
     if(j>=2){
       arbol[0]['chileren'][0]['children'].push(userData);
     } else {
