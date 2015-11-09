@@ -367,7 +367,7 @@ var randomUsers = function(arbol,cant,i){
 
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
-	db['usuario'].all({ hierarchy: true}).then(function(items){
+	db['usuario'].all({ hierarchy: true, include:[{model:db['usuario'],as:'asignados'},{model:db['usuario'],as:'directos'}] }).then(function(items){
 		res.json(items);
 	});
 });

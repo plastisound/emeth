@@ -30,6 +30,8 @@ module.exports = function(sequelize, DataTypes) {
 	tableName: 'usuario',
 	classMethods: {
 		associate: function(models) {
+			Model.hasMany(models.usuario,{as:'asignados',foreignKey:'parentId'}),
+			Model.hasMany(models.usuario,{as:'directos',foreignKey:'directo_id'}),
 			Model.belongsTo(models.usuario,{as:'asignado',foreignKey:'parentId'}),
 			Model.belongsTo(models.usuario,{as:'directo',foreignKey:'directo_id'})
 		}

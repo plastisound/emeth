@@ -31,6 +31,7 @@ var DrawTree = function(tree, parent, depth, number,position){
     this.node = tree.node;
     this.y = depth;
     this.position = position;
+    this.directos = tree.directos;
     //this.children = [DrawTree(c, self, depth+1, i+1) for i, c in enumerate(tree.children)]
     this.children = [];
     for(var i in tree.children){
@@ -93,7 +94,7 @@ var buchheim = function(tree){
 }
 
 var third_walk = function(tree, n){
-    console.log('THIRD');
+    //console.log('THIRD');
     tree.x +=n;
     for(var i in tree.children){
         var c = tree.children[i];
@@ -118,7 +119,7 @@ var firstwalk = function(v, distance){
                 firstwalk(wobj);
                 default_ancestor = apportion(wobj, default_ancestor, distance);
             }
-            console.log('finished v= '+v.tree+" children");
+            //console.log('finished v= '+v.tree+" children");
             execute_shifts(v);
 
             //midpoint = (v.children[0].x + v.children[-1].x) / 2
@@ -186,7 +187,7 @@ var apportion = function(v, default_ancestor, distance){
 
 var move_subtree = function(wl, wr, shift){
     subtrees = wr.number - wl.number;
-    console.log(wl.tree+" is conflicted with "+ wr.tree+ ' moving '+ subtrees+ ' shift '+ shift);
+    //console.log(wl.tree+" is conflicted with "+ wr.tree+ ' moving '+ subtrees+ ' shift '+ shift);
     //print wl, wr, wr.number, wl.number, shift, subtrees, shift/subtrees
     wr.change -= shift / subtrees;
     wr.shift += shift;
@@ -200,7 +201,7 @@ var execute_shifts = function(v){
     for(var i = v.children.length; i>0; i--){
         var w = v.children[i];
         if(w){
-	        console.log("shift: "+ w+" "+shift+" "+w.change);
+	        //console.log("shift: "+ w+" "+shift+" "+w.change);
 	        w.x += shift;
 	        w.mod += shift;
 	        change += w.change;
@@ -251,7 +252,7 @@ window.onload = function () {
 
 	function resizePaper(){
 		var win = $(this);
-		console.log(win.width());
+		//console.log(win.width());
 		rjs.changeSize(win.width(), win.height(), false, true);
 	}
 	rjs.changeSize(globalW, globalH);
@@ -320,10 +321,17 @@ window.onload = function () {
 		if(root.node=='---'){
 	    	animateSelector(selected);
 	    }
+
+	    /*
+	    var nodo = rjs.circle( (root.x * rw) + marginW+(r/2) , (depth * rh) +marginH , r)
+	    	//.attr({stroke:'#57d1b7',fill:'url("/images/profile.jpg")','stroke-width':3})
+	    	.attr({stroke:takeFillColor(depth),fill: "90-#F2F2F2-#fff",'stroke-width':4,'cursor':'pointer'})
+	    	*/
+
 		// Circle
 		var nodo = rjs.circle( (root.x * rw) + marginW+(r/2) , (depth * rh) +marginH , r)
 	    	//.attr({stroke:'#57d1b7',fill:'url("/images/profile.jpg")','stroke-width':3})
-	    	.attr({stroke:takeFillColor(depth),fill:'#FFF','stroke-width':4,'cursor':'pointer'})
+	    	.attr({stroke:takeFillColor(depth),fill: "90-#F2F2F2-#fff",'stroke-width':4,'cursor':'pointer'})
 	    	.data('node',root)
 	    	.data('selected',selected)
 	    	.click(function(e){
@@ -364,7 +372,7 @@ window.onload = function () {
 	    			// add global directo
 	    			// Load User Data
     				$('#btnLoad').click();
-	    			drawEnabled(root);
+	    			drawEnabled(root,true);
     			} else {
     			  // Crear hijo
     				if(!parent_id){
@@ -407,7 +415,6 @@ window.onload = function () {
 	    		*/
 	    	})
 	    	.mouseover(function(e){
-	    		console.log('mouseover');
 	    		if(this.data('selected').attr('opacity')!=1)
 	    			this.data('selected').attr({opacity:0.99});
 	    	})
@@ -423,9 +430,13 @@ window.onload = function () {
 	    	.attr({fill:takeFillColor(depth),'stroke-width':0,r:10});
 	    var text = rjs.text((root.x * rw) + marginW+(r/2) , (depth * rh) +marginH+36 , root.node.split('@')[0] )
 	    	.attr({fill:'#FFF','font-size':13,'stroke-width':0,'font-weight':'normal'});
+	    	    // Draw directos
+	    var text2 = rjs.text((root.x * rw) + marginW+(r/2) , (depth * rh) +marginH , (root.directos)?root.directos.length:'' )
+	    	.attr({fill:'#999','font-size':24,'stroke-width':0,'font-weight':'bold'});
 
 	    // Group Add
-	    st.push(nodo,c,text,selected);
+	    st.push(nodo,c,text,text2,selected);
+
 	    for(i in root.children)
 	        drawt(root.children[i], depth+1);
 
@@ -443,12 +454,17 @@ window.onload = function () {
 		drawt(dt, 0);
 	};
 
-	var drawEnabled = function(root){
+	var _directos = [];
+	var drawEnabled = function(root,isSelected){
 		/*
 			No permite añadir nodos donde:
 				Ya existe un binario
 				El nodo es nuevo y aún no se completa su registro
 		*/
+		if(isSelected){
+			_directos = root.directos;
+			console.log(_directos);
+		}
 		var maxnodes = 3;
 		if(root){
 			if(root['children'].length<maxnodes){
@@ -480,6 +496,19 @@ window.onload = function () {
 				}
 			});
 		}
+
+		// Marcar nodos directos
+		var nodo = findNode(root['node'],trees);
+		_directos.some(function(d){
+			if(d['id']==nodo['id']){
+				var shape = rjs.getByClass(root['id']);
+				shape.some(function(x){
+					x.data('enabled',true)
+						.attr({'fill':'#C6E3FF'});
+				});
+			}
+		});
+
 	}
 
 	var cleanSelected = function(){
@@ -615,7 +644,6 @@ window.onload = function () {
 	    if(arr.children[pos-1].children.length>=2){
 	      addNodeLast(arr.children[pos-1],pos);
 	    } else {
-	    	console.log(arr.children[pos-1]);
 	    	$('#parentId').val(arr.children[pos-1]['id']);
 			$('#parentId').trigger('change');
 			$('#btnReset').click();
@@ -694,7 +722,7 @@ window.onload = function () {
 	    // Build the node structure
 	    var name = arry[0]['nombres'];
 	    name = (name.length>10 ) ? name.substring(0,10)+'...' : name;
-	    var rootNode = {node:name,id:arry[0]['id'], width:name.length, children:new Array()};
+	    var rootNode = {node:name,id:arry[0]['id'], width:name.length, children:new Array(), asignados:arry[0]['asignados'],directos:arry[0]['directos']};
 	    for (var i = 0; i < arry.length; i++)
 	    {
 	        var children = arry[i];
@@ -712,7 +740,7 @@ window.onload = function () {
 				item = children[i];
 				var name = item['nombres'];
 	    		name = (name.length>10 ) ? name.substring(0,10)+'...' : name;
-				node.children[i] = {node:name,id:item['id'], width:name, children:new Array()};
+				node.children[i] = {node:name,id:item['id'], width:name, children:new Array(), asignados:item['asignados'],directos:item['directos']};
 				if(item.children)
 					buildNodeRecursive(node.children[i],item.children);
 				i++;
