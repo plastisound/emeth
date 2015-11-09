@@ -237,13 +237,13 @@ app.get('/api/getUser',function(req,res,next){
 	});
 });
 
-var fakeUsuario = function(){
-  return fakeData = {
-    correo:faker.internet.email(),
-    nombres:faker.name.findName(),
-    apellidos:faker.name.lastName(),
-    password:'12345',
-    f_nacimiento:faker.date.past(),
+var rootUsuario = function(){
+  	return fakeData = {
+    	correo:'yamilquery@gmail.com',
+    	nombres:faker.name.findName(),
+    	apellidos:faker.name.lastName(),
+    	password:'12345',
+    	f_nacimiento:faker.date.past(),
 		ciudad_origen:22,
 		estado:'Queretaro',
 		telefono:faker.phone.phoneNumber(),
@@ -260,32 +260,77 @@ var fakeUsuario = function(){
 		parentId:null,
 		directo_id:null,
 		rol:1
-  };
+  	};
 }
+
+var fakeUsuario = function(){
+  	return fakeData = {
+    	correo:faker.internet.email(),
+    	nombres:faker.name.findName(),
+    	apellidos:faker.name.lastName(),
+    	password:'12345',
+    	f_nacimiento:faker.date.past(),
+		ciudad_origen:22,
+		estado:'Queretaro',
+		telefono:faker.phone.phoneNumber(),
+		calle:faker.address.streetName(),
+		colonia:faker.address.streetAddress(),
+		no_ext:'22',
+		no_int:'',
+		cp:'76138',
+		rfc:'RFCDGYVgHJJG22',
+		curp:'CURPHFYNJB',
+		banco:1,
+		numeroCuenta:'4444444444',
+		numeroTransferencia:'4444444444',
+		parentId:null,
+		directo_id:null,
+		rol:1
+  	};
+}
+
+var truncateUsuario = function(cb){
+	var Promise = db.Sequelize.Promise;
+	var destruir = [];
+	db['usuario'].all().then(function(usuarios){
+		if(usuarios){
+			usuarios.some(function(usuario){
+				destruir.push( usuario.destroy() );
+			});
+		}
+	});
+	Promise.all(destruir).done(function(p){
+		cb(null);
+	});
+};
 
 app.get('/api/makeRandomUsers',function(req,res,next) {
   var count = 10;
-  var Promise = db.Sequelize.Promise;
-  db['usuario'].create(fakeUsuario).then(function(usuario){
-    var random = randomInt(1,4);
-    var promiseUsuarios = [];
-    for (var j = 0; j < random; j++) {
-      var userData = fakeUsuario;
-      userData['directo_id'] = usuario['id'];
-      userData['parentId'] = usuario['id'];
-      if(j>=3){
-        //userData[''];
-      } else {
-        
-      }
-      promiseUsuarios.push(db['usuario'].create(userData));
-    }
-    
-    Promise.all(promiseUsuarios).done(function(p){
-      res.json(p);
-    });
-  });
-})
+  truncateUsuario(function(){
+  		var Promise = db.Sequelize.Promise;
+		db['usuario'].create(rootUsuario()).then(function(usuario){
+			var random = randomInt(1,4);
+			var promiseUsuarios = [];
+			for (var j = 0; j < random; j++) {
+			  var userData = fakeUsuario();
+			  userData['directo_id'] = usuario['id'];
+			  userData['parentId'] = usuario['id'];
+			  if(j>=3){
+			    //userData[''];
+			  } else {
+			    
+			  }
+			  promiseUsuarios.push(db['usuario'].create(userData));
+			}
+
+			Promise.all(promiseUsuarios).done(function(p){
+			  	db['usuario'].all({ hierarchy: true}).then(function(items){
+					res.json(items);
+				});
+			});
+	  	});
+  	});
+});
 
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
