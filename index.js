@@ -350,6 +350,7 @@ app.get('/api/makeRandomUsersJSON',function(req,res,next) {
       arbol[0]['chileren'].push(userData);
     }
   }
+  res.json(arbol);
 });
 
 // Con modulo jerarquico 
