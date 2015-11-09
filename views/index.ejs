@@ -2,6 +2,7 @@
 <% include navbar %> 
 
 <script type="text/javascript">
+DEV_MODE = true;
 // TREE
 var Tree = function(node, id, children){
     node = (node) ? node : '';
@@ -586,13 +587,27 @@ window.onload = function () {
 		drawPaper();
 		var arr = findNode(node['node'],trees);
 		var hijos = arr.children.length;
+		if(!node.position){
+			alert('Por favor elige a que posición deseas agregar este hijo');
+			redrawAll();
+			return false;
+		}
 		var pos = (node.parent.position) ? node.parent.position : node.position;
 		if(hijos>=2){
 		  addNodeLast(arr,pos);
 		} else {
 		  arr.children.push(new Tree('---',-1));
 		}
-		redrawAll(); 
+		redrawAll();
+		// Developer Mode
+		if(DEV_MODE){
+			$('#frmCreateUser').find('input[type!="button"][type!="submit"], select').each(function(){
+				$(this).val( fakeUsuario()[$(this).attr('id')] );
+				if( ($(this).attr('type')=='text') || ($(this).attr('type')=='email') )
+					$(this).trigger('change');
+			});
+			$('#btnRegistrar').click();
+		}
 	}
 	//Insertar nodo en posicion correspondiente L o R respecto a al nodo padre hasta abajo
 	var addNodeLast = function(arr,pos) {
@@ -600,7 +615,11 @@ window.onload = function () {
 	    if(arr.children[pos-1].children.length>=2){
 	      addNodeLast(arr.children[pos-1],pos);
 	    } else {
-	      arr.children[pos-1].children.push(new Tree('---',-1));
+	    	console.log(arr.children[pos-1]);
+	    	$('#parentId').val(arr.children[pos-1]['id']);
+			$('#parentId').trigger('change');
+			$('#btnReset').click();
+	      	arr.children[pos-1].children.push(new Tree('---',-1));
 	    }
 	  }
 	}
@@ -890,7 +909,7 @@ window.onload = function () {
 						<input type="button" id="btnReset" style="display:none;" ng-click="resetUser()" value="Reset Data">
 						<input type="button" id="btnLoad" style="display:none;" ng-click="getUser(user)" value="Load Data">
 						<input type="button" id="btnRemove" class="btn btn-danger" style="border:0px; margin-top:10px;" ng-click="removeUser(user)" value="Eliminar Usuario">
-						<input type="submit" ng-click="update(user)" class="btn btn-primary" style="border:0px; margin-top:10px;" value="Registrar">
+						<input type="submit" id="btnRegistrar" ng-click="update(user)" class="btn btn-primary" style="border:0px; margin-top:10px;" value="Registrar">
 					</div>
 				</form>
 			</div>
@@ -977,6 +996,35 @@ window.onload = function () {
 	function formatterPersona(value, row) {
         return row['persona'];
     }
+
+    var fakeUsuario = function(id){
+	  	return fakeData = {
+	  		id:id,
+	    	correo:faker.internet.email(),
+	    	nombres:faker.name.findName(),
+	    	apellidos:faker.name.lastName(),
+	    	password:'12345',
+	    	f_nacimiento:faker.date.past(),
+			ciudad_origen:22,
+			estado:'Queretaro',
+			telefono:faker.phone.phoneNumber(),
+			calle:faker.address.streetName(),
+			colonia:faker.address.streetAddress(),
+			no_ext:'22',
+			no_int:'',
+			cp:'76138',
+			rfc:'RFCDGYVgHJJG22',
+			curp:'CURPHFYNJB',
+			banco:1,
+			numeroCuenta:'4444444444',
+			numeroTransferencia:'4444444444',
+			parentId:null,
+			directo_id:null,
+			rol:1,
+			children:[]
+	  	};
+	}
+
 </script>
 
 <!-- Modal -->

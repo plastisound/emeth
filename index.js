@@ -239,6 +239,7 @@ app.get('/api/getUser',function(req,res,next){
 
 var rootUsuario = function(){
   	return fakeData = {
+  		id:1,
     	correo:'yamilquery@gmail.com',
     	nombres:faker.name.findName(),
     	apellidos:faker.name.lastName(),
@@ -260,12 +261,13 @@ var rootUsuario = function(){
 		parentId:null,
 		directo_id:null,
 		rol:2,
-		children:null
+		children:[]
   	};
 }
 
-var fakeUsuario = function(){
+var fakeUsuario = function(id){
   	return fakeData = {
+  		id:id,
     	correo:faker.internet.email(),
     	nombres:faker.name.findName(),
     	apellidos:faker.name.lastName(),
@@ -287,7 +289,7 @@ var fakeUsuario = function(){
 		parentId:null,
 		directo_id:null,
 		rol:1,
-		children:null
+		children:[]
   	};
 }
 
@@ -336,22 +338,32 @@ app.get('/api/makeRandomUsers',function(req,res,next) {
 });
 
 app.get('/api/makeRandomUsersJSON',function(req,res,next) {
-  var count = 10;
-  var arbol = [];
-  arbol.push(rootUsuario());
-  var random = randomInt(1,4);
-  for (var j = 0; j < random; j++) {
-    var userData = fakeUsuario();
-    //userData['directo_id'] = usuario['id'];
-    //userData['parentId'] = usuario['id'];
-    if(j>=2){
-      arbol[0]['chileren'][0]['children'].push(userData);
-    } else {
-      arbol[0]['chileren'].push(userData);
-    }
-  }
-  res.json(arbol);
+	var count = 10;
+	var arbol = [];
+	arbol.push(rootUsuario());
+	randomUsers(arbol,4,0);
+	res.json(arbol);
 });
+
+var randomUsers = function(arbol,cant,i){
+	if(cant>=0){
+		var random = randomInt(1,4);
+		var ai = 1;
+		for (var j = 0; j < random; j++) {
+			var userData = fakeUsuario(ai);
+			ai++;
+			//userData['directo_id'] = usuario['id'];
+			//userData['parentId'] = usuario['id'];
+			if(j>=2){
+			  	arbol[i]['children'][0]['children'].push(userData);
+			} else {
+			  	arbol[i]['children'].push(userData);
+			}
+		}
+		console.log(cant--);
+		randomUsers(arbol,cant--);
+	}
+};
 
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
