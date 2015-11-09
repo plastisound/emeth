@@ -92,7 +92,6 @@
 		};
 
 		$scope.removeUser = function(user){
-			alert(user.id);
 			$http({
 		        method: 'POST',
 		        url: '/api/removeUser',
