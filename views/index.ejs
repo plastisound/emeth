@@ -616,14 +616,14 @@ window.onload = function () {
 		drawPaper();
 		var arr = findNode(node['node'],trees);
 		var hijos = arr.children.length;
-		if(!node.position){
-			alert('Por favor elige a que posición deseas agregar este hijo');
-			redrawAll();
-			return false;
-		}
-		var pos = (node.parent.position) ? node.parent.position : node.position;
 		if(hijos>=2){
-		  addNodeLast(arr,pos);
+			if(!node.position){
+				alert('Por favor elige a que posición deseas agregar este hijo');
+				redrawAll();
+				return false;
+			}
+			var pos = (node.parent.position) ? node.parent.position : node.position;
+		  	addNodeLast(arr,pos);
 		} else {
 		  arr.children.push(new Tree('---',-1));
 		}
