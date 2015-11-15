@@ -43,6 +43,40 @@ module.exports = function(sequelize, DataTypes) {
 		encryptPassword: function(password, salt){
 			return crypto.createHmac('sha1', salt).update(password).digest('hex');
 		},
+		checkComplete: function(usuario,nivel){
+			// Busca si un usuario ya tiene completados con 3 personas al menos 3 niveles
+			var Promise = db.Sequelize.Promise;
+			var buscar = [];
+			var fila = [];
+			var recursivos = [];
+			var ok = true;
+			if((usuario.asignados) && (usuario.asignados.length>=2)){
+        		
+        		usuario.asignados.some(function(asignado){
+        			fila.push(asignado.id);
+					buscar.push( Model.find({where:{id:asignado['id']},include:[{model:db['usuario'],as:'asignados'}] }).then(function(d){
+						if(d.asignados.length<2){
+							ok = false;
+						} else {
+							recursivos.push(d);
+						}
+						//console.log('iD: '+d.id+' '+d.asignados.length);
+					}) );
+				});
+				console.log('fila: '+fila);
+
+				Promise.all(buscar).done(function(p){
+					console.log('USuriao:'+usuario.id);
+					console.log('OK: '+ok);
+					console.log('nivel: '+nivel);
+					if(ok){
+						recursivos.some(function(d){
+							//this.checkComplete(d,nivel++);
+						});
+					}
+				});
+        	}
+		}
 	},
 	getterMethods:{
 		verifyPassword: function() { return this._verifyPassword },
@@ -55,6 +89,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         persona: function () {
             return this.getDataValue('nombres') + ' ' + this.getDataValue('apellidos');
+        },
+        completo: function(){
+        	this.checkComplete(this,0);
+        	return (this.directos)?this.directos.length:0;
         }
 	},
 	setterMethods:{

@@ -246,7 +246,7 @@ var parent_id, directo_id; // RaphaelJS objects
 
 window.onload = function () {
 	//rjs = Raphael("chartDiv");
-	var globalW = 3000;
+	var globalW = 3200;
 	var globalH = 1600;
 	rjs = ScaleRaphael("chartDiv",globalW,globalH);
 
@@ -258,7 +258,7 @@ window.onload = function () {
 	rjs.changeSize(globalW, globalH);
 	//resizePaper();
 	//$(window).resize(resizePaper); 
-	//rjs.scaleAll(0.5);
+	rjs.scaleAll(0.45);
 
 	Raphael.fn.getByClass = function(clsname){
         var res = [];
@@ -768,8 +768,12 @@ window.onload = function () {
 
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active">
+				<!-- Canvas -->
+				<div style="height:770px; overflow:auto; position:relative;" class="col-xs-12 col-sm-12 col-lg-12" align="left">
+					<div id="chartDiv"></div>
+				</div>
 				<!-- TreeView -->
-				<div ng-controller="ExampleController" style="margin-left:10px;" class="col-xs-12 col-sm-12 col-lg-5 well" align="left">
+				<div ng-controller="ExampleController" style="margin-left:10px;" class="col-xs-12 col-sm-12 col-lg-12 well" align="left">
 				<!-- Instructions -->
 				<div ng-show="user.directo_id == null">
 					<h4>Instrucciones</h4>
@@ -942,9 +946,7 @@ window.onload = function () {
 					</div>
 				</form>
 			</div>
-			<div style="height:770px; overflow:auto; position:relative;" class="col-xs-12 col-sm-12 col-lg-6" align="left">
-				<div id="chartDiv"></div>
-			</div>
+			
 				<!-- End TreeView -->
 			</div>
 
