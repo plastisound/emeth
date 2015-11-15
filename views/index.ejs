@@ -432,7 +432,7 @@ window.onload = function () {
 	    	.attr({fill:'#FFF','font-size':13,'stroke-width':0,'font-weight':'normal'});
 	    	    // Draw directos
 	    var text2 = rjs.text((root.x * rw) + marginW+(r/2) , (depth * rh) +marginH , (root.directos)?root.directos.length:'' )
-	    	.attr({fill:'#999','font-size':24,'stroke-width':0,'font-weight':'bold'});
+	    	.attr({fill:(root.directos.length>=2)?'#00F':'#999','font-size':24,'stroke-width':0,'font-weight':'bold'});
 
 	    // Group Add
 	    st.push(nodo,c,text,text2,selected);
