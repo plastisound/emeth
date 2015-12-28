@@ -161,7 +161,7 @@ app.get('/normal',Auth.isAuthenticated,function(req,res,next){
 	res.render('normal',{titulo:'Emethma',myID:req.user.id});
 });
 
-app.get('/politica',Auth.isAuthenticated,function(req,res,next){
+app.get('/politica',function(req,res,next){
 	res.render('politica',{titulo:'Emethma',myID:req.user.id});
 });
 
