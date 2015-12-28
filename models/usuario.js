@@ -1,5 +1,46 @@
 var crypto = require('crypto');
 
+var recursiveComplete = function(hijos,nivel){
+	// Busca si un usuario ya tiene completados con 3 personas al menos 3 niveles
+	var recursivos = [];
+	var ok = true;
+	if(hijos){
+		hijos = (hijos.children) ? hijos.children : hijos; // Ajusta sí es la primera iteración
+		// Averigua sí tiene sus hijos completos
+		if(hijos.length>=2){
+			hijos.some(function(child){
+				//console.log(i);
+				/*
+				for(var i=0; i<=nivel; i++){
+					console.log('JEJEJE');
+					if(child && child.children){
+						console.log(child.children.length);
+						child.children.some(function(x){
+							var xa = (x && x.children) ? x.children.length : 0;
+							console.log('Long: '+xa);
+						});
+					}
+					console.log(i);
+				}
+				*/
+				if(child && child.children)
+					if(child.children.length<2){
+						ok = false;
+					} else {
+						recursivos.push(child);
+					}
+			});
+			if(ok){
+				nivel = nivel+1;
+				//console.log('MAMI'+nivel);
+				if(nivel>=3) return nivel;
+				return recursiveComplete(recursivos,nivel);
+			}
+		}
+	}
+	return 0;
+};
+
 module.exports = function(sequelize, DataTypes) {
 	var Model = sequelize.define('usuario', {
 		id:{ type: DataTypes.INTEGER, autoIncrement:true, primaryKey: true },
@@ -42,40 +83,6 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		encryptPassword: function(password, salt){
 			return crypto.createHmac('sha1', salt).update(password).digest('hex');
-		},
-		checkComplete: function(usuario,nivel){
-			// Busca si un usuario ya tiene completados con 3 personas al menos 3 niveles
-			var Promise = db.Sequelize.Promise;
-			var buscar = [];
-			var fila = [];
-			var recursivos = [];
-			var ok = true;
-			if((usuario.asignados) && (usuario.asignados.length>=2)){
-        		
-        		usuario.asignados.some(function(asignado){
-        			fila.push(asignado.id);
-					buscar.push( Model.find({where:{id:asignado['id']},include:[{model:db['usuario'],as:'asignados'}] }).then(function(d){
-						if(d.asignados.length<2){
-							ok = false;
-						} else {
-							recursivos.push(d);
-						}
-						//console.log('iD: '+d.id+' '+d.asignados.length);
-					}) );
-				});
-				console.log('fila: '+fila);
-
-				Promise.all(buscar).done(function(p){
-					console.log('USuriao:'+usuario.id);
-					console.log('OK: '+ok);
-					console.log('nivel: '+nivel);
-					if(ok){
-						recursivos.some(function(d){
-							//this.checkComplete(d,nivel++);
-						});
-					}
-				});
-        	}
 		}
 	},
 	getterMethods:{
@@ -91,8 +98,12 @@ module.exports = function(sequelize, DataTypes) {
             return this.getDataValue('nombres') + ' ' + this.getDataValue('apellidos');
         },
         completo: function(){
-        	this.checkComplete(this,0);
-        	return (this.directos)?this.directos.length:0;
+        	if((this) && (this.children) && (this.children.length>=2)){
+        		return recursiveComplete(this,0);
+        	} else {
+        		return 0;
+        	}
+        	//return (this.directos)?this.directos.length:0;
         }
 	},
 	setterMethods:{

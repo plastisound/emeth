@@ -161,6 +161,10 @@ app.get('/normal',Auth.isAuthenticated,function(req,res,next){
 	res.render('normal',{titulo:'Emethma',myID:req.user.id});
 });
 
+app.get('/politica',Auth.isAuthenticated,function(req,res,next){
+	res.render('politica',{titulo:'Emethma',myID:req.user.id});
+});
+
 app.get('/login',function(req,res,net){
 	res.render('login',{titulo:'Emethma'});
 });
@@ -365,9 +369,50 @@ var randomUsers = function(arbol,cant,i){
 	}
 };
 
+var recursiveComplete = function(usuario,nivel){
+	// Busca si un usuario ya tiene completados con 3 personas al menos 3 niveles
+	var Promise = db.Sequelize.Promise;
+	var buscar = [];
+	var recursivos = [];
+	var ok = true;
+	if((usuario.children) && (usuario.children.length>=2)){
+		
+		usuario.children.some(function(child){
+			if(child && child.children)
+				if(child.children.length<2){
+					ok = false;
+				} else {
+					recursivos.push(child);
+				}
+		});
+
+			console.log(usuario.id,ok,nivel);
+			nivel = nivel+1;
+			if(nivel>=3){
+				if(ok){
+					console.log('CHINGON: '+usuario.id);
+					return nivel;
+				}
+			}
+			if(ok){
+				recursivos.some(function(d){
+					return recursiveComplete.call(d,nivel);
+				});
+			}
+	}
+};
+
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
 	db['usuario'].all({ hierarchy: true, include:[{model:db['usuario'],as:'asignados'},{model:db['usuario'],as:'directos'}] }).then(function(items){
+		/*
+		items.map(function(item){
+			item['dataValues']['mami'] = 'yhea';
+			return item.toJSON();
+		});
+		console.log(items);
+		*/
+		//recursiveComplete(items[0]);
 		res.json(items);
 	});
 });
