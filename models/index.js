@@ -18,7 +18,7 @@ if (process.env.NODE_ENV == 'production'){
   });
 } else {
   console.log('Development');
-  sequelize = new Sequelize('emethma', 'root', '', {
+  sequelize = new Sequelize('emethma', 'uaq', 'uaq12345', {
     host: 'localhost',
     dialect:  'mysql',
     protocol: 'mysql',
