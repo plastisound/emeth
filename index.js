@@ -306,7 +306,7 @@ var truncateUsuario = function(cb){
 	Promise.all(destruir).done(function(p){
 		cb(null);
 	});
-};
+}; 
 
 app.get('/api/makeRandomUsers',function(req,res,next) {
   var count = 10;
