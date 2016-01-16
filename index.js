@@ -163,10 +163,6 @@ app.get('/normal',Auth.isAuthenticated,function(req,res,next){
 	res.render('normal',{titulo:'Emethma',myID:req.user.id});
 });
 
-app.get('/politica',function(req,res,next){
-	res.render('politica',{titulo:'Emethma'});
-});
-
 app.get('/login',function(req,res,net){
 	res.render('login',{titulo:'Emethma'});
 });
@@ -246,19 +242,19 @@ app.get('/api/getUser',function(req,res,next){
 var rootUsuario = function(){
   	return fakeData = {
   		id:1,
-    	correo:'yamilquery@gmail.com',
-    	nombres:faker.name.findName(),
-    	apellidos:faker.name.lastName(),
+    	correo:'angel_fargot@hotmail.com',
+    	nombres:'Angel',
+    	apellidos:'Falkor',
     	password:'12345',
     	f_nacimiento:faker.date.past(),
 		ciudad_origen:22,
 		estado:'Queretaro',
-		telefono:faker.phone.phoneNumber(),
+		telefono:'4422006389',
 		calle:faker.address.streetName(),
 		colonia:faker.address.streetAddress(),
 		no_ext:'22',
 		no_int:'',
-		cp:'76138',
+		cp:'76130',
 		rfc:'RFCDGYVgHJJG22',
 		curp:'CURPHFYNJB',
 		banco:1,
@@ -312,7 +308,7 @@ var truncateUsuario = function(cb){
 	Promise.all(destruir).done(function(p){
 		cb(null);
 	});
-};
+}; 
 
 app.get('/api/makeRandomUsers',function(req,res,next) {
   var count = 10;
@@ -371,50 +367,9 @@ var randomUsers = function(arbol,cant,i){
 	}
 };
 
-var recursiveComplete = function(usuario,nivel){
-	// Busca si un usuario ya tiene completados con 3 personas al menos 3 niveles
-	var Promise = db.Sequelize.Promise;
-	var buscar = [];
-	var recursivos = [];
-	var ok = true;
-	if((usuario.children) && (usuario.children.length>=2)){
-		
-		usuario.children.some(function(child){
-			if(child && child.children)
-				if(child.children.length<2){
-					ok = false;
-				} else {
-					recursivos.push(child);
-				}
-		});
-
-			console.log(usuario.id,ok,nivel);
-			nivel = nivel+1;
-			if(nivel>=3){
-				if(ok){
-					console.log('CHINGON: '+usuario.id);
-					return nivel;
-				}
-			}
-			if(ok){
-				recursivos.some(function(d){
-					return recursiveComplete.call(d,nivel);
-				});
-			}
-	}
-};
-
 // Con modulo jerarquico 
 app.get('/api/getUsers',function(req,res,next){
 	db['usuario'].all({ hierarchy: true, include:[{model:db['usuario'],as:'asignados'},{model:db['usuario'],as:'directos'}] }).then(function(items){
-		/*
-		items.map(function(item){
-			item['dataValues']['mami'] = 'yhea';
-			return item.toJSON();
-		});
-		console.log(items);
-		*/
-		//recursiveComplete(items[0]);
 		res.json(items);
 	});
 });
