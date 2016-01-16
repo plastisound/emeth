@@ -108,7 +108,9 @@ app.locals._banco = [
 	{id:'23', banco : 'Grupo Financiero Santander Serfín, S.A. de C.V.'},
 	{id:'24', banco : 'Sociedad Financiera de Objeto Limitado'},
 	{id:'25', banco : 'Sociedad Financiera de Objeto Múltiple'},
-	{id:'26', banco : 'Sociedad Hipotecaria Federal, S.N.C.'}
+	{id:'26', banco : 'Sociedad Hipotecaria Federal, S.N.C.'},
+	{id:'27', banco : 'Scotiabank México'},
+	{id:'28', banco : 'IXE'}
 ]
 
 // Transform to Global Var
