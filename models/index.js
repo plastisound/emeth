@@ -43,7 +43,6 @@ Object.keys(db).forEach(function(modelName) {
     db[modelName].associate(db)
   }
 })
- 
 
 module.exports = lodash.extend({
   sequelize: sequelize,
