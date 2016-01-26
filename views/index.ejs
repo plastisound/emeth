@@ -886,7 +886,6 @@ window.onload = function () {
 						<h3><small>Datos de Envío</small></h3>
 						<span>Estado:</span> {{user.ciudad_origen}}
 						<select id="ciudad_origen" name="ciudad_origen" ng-options="ciudad.id as ciudad.ciudad for ciudad in _ciudad" ng-model="user.ciudad_origen" class="form-control selectpicker" style="">
-							<option value="">--Estado--</option>
 						</select>
 						<span>Municipio:</span>
 						<input required id="estado" name="estado" ng-model="user.estado" type="text" class="form-control" style="" placeholder="Estado">
