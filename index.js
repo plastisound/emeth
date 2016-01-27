@@ -111,7 +111,53 @@ app.locals._banco = [
 	{id:'26', banco : 'Sociedad Hipotecaria Federal, S.N.C.'},
 	{id:'27', banco : 'Scotiabank México'},
 	{id:'28', banco : 'IXE'}
-]
+];
+
+/*
+app.locals._banco = [
+	{id:'29',banco:'AMERICAN EXPRESS'},
+	{id:'30',banco:'BANAMEX'},
+	{id:'31',banco:'BANCA MIFEL'},
+	{id:'32',banco:'BANCEN'},
+	{id:'33',banco:'BANCO ABC CAPITAL'},
+	{id:'34',banco:'BANCO AFIRME'},
+	{id:'35',banco:'BANCO AZTECA'},
+	{id:'36',banco:'BANCO DEL BAJIO'},
+	{id:'37',banco:'BANCO INBURSA'},
+	{id:'38',banco:'BANCO INDUSTRIAL'},
+	{id:'39',banco:'BANCO INTERACCIONES'},
+	{id:'40',banco:'BANCO MULTIVA'},
+	{id:'41',banco:'BANCOMEXT'},
+	{id:'42',banco:'BANCOPPEL'},
+	{id:'43',banco:'BANCRECER'},
+	{id:'44',banco:'BANJERCITO'},
+	{id:'45',banco:'BANOBRAS'},
+	{id:'46',banco:'BANORTE'},
+	{id:'47',banco:'BANPAIS'},
+	{id:'48',banco:'BANREGIO'},
+	{id:'49',banco:'BANRURAL'},
+	{id:'50',banco:'BANSI'},
+	{id:'51',banco:'BANXICO'},
+	{id:'52',banco:'BBVA BANCOMER'},
+	{id:'53',banco:'BOSTON'},
+	{id:'54',banco:'CITIBANK'},
+	{id:'55',banco:'CONFIA'},
+	{id:'56',banco:'DRESDNER'},
+	{id:'57',banco:'EDENRED'},
+	{id:'58',banco:'ELEKTRA'},
+	{id:'59',banco:'FMM CONSUMO S.A'},
+	{id:'60',banco:'FONACOT'},
+	{id:'61',banco:'HSBC'},
+	{id:'62',banco:'IXE'},
+	{id:'63',banco:'LIVERPOOL'},
+	{id:'64',banco:'NAFINSA'},
+	{id:'65',banco:'PALACIO DE HIERRO'},
+	{id:'66',banco:'SANTANDER'},
+	{id:'67',banco:'SCOTIA BANK INVERLAT'},
+	{id:'68',banco:'SPIRA'},
+	{id:'69',banco:'SURESTE'}
+];
+*/
 
 // Transform to Global Var
 _ciudad = app.locals._ciudad;
