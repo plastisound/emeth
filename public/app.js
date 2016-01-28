@@ -108,10 +108,10 @@
 		        method: 'GET',
 		        url: '/api/getUser',
 		        params: { id:user.directo_id }
-			}).success(function (result) { 
+			}).success(function (r1) { 
 				$scope.frmCreateUser.$setUntouched();
 				$scope.frmCreateUser.$setPristine();
-			    $scope.user = result;
+			    $scope.user = r1;
 			    if(!$scope.user.directo_id) $scope.user.directo_id = user.directo_id;
 			    if(user.parentId) $scope.user.parentId = user.parentId;
 			    // Get Directo
@@ -129,6 +129,9 @@
 			        params: { id:$scope.user.parentId }
 				}).success(function (result) { 
 					$scope.asignado = result;
+					$('#ciudad_origen').val(result.ciudad_origen-1);
+					$('#cp').val(result.cp);
+					//$('#ciudad_origen option[value="'+result.ciudad_origen+'"]').attr("selected", "selected");
 				});
 			});
 		}
