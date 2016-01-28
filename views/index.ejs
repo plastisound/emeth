@@ -246,8 +246,9 @@ var parent_id, directo_id; // RaphaelJS objects
 
 window.onload = function () {
 	//rjs = Raphael("chartDiv");
-	var globalW = 3200;
-	var globalH = 1600;
+	var globalW = screen.width;
+	var globalH = screen.height;
+	//alert('width: ' + screen.width + ', height: ' + screen.height);
 	rjs = ScaleRaphael("chartDiv",globalW,globalH);
 
 	function resizePaper(){
@@ -769,7 +770,7 @@ window.onload = function () {
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active">
 				<!-- Canvas -->
-				<div style="height:770px; overflow:auto; position:relative;" class="col-xs-12 col-sm-12 col-lg-12" align="left">
+				<div style="height:500px; overflow:auto; position:relative;" class="col-xs-12 col-sm-12 col-lg-12" align="left">
 					<div id="chartDiv"></div>
 				</div>
 				<!-- TreeView -->
@@ -910,8 +911,17 @@ window.onload = function () {
 						<div ng-show="frmCreateUser.$submitted || frmCreateUser.colonia.$touched">
 							<label class="lblError" ng-show="frmCreateUser.colonia.$error.required">Ingresa una colonia</label>
 						</div>
+
+						<!--
 						<span>Código Postal:</span>
 						<input required id="cp" ng-required="integer" integer name="cp" min="1000" max="99999" ng-model="user.cp" type="number" class="form-control" style="" placeholder="Código Postal">
+						<div ng-show="frmCreateUser.$submitted || frmCreateUser.cp.$touched">
+							<label class="lblError" ng-show="frmCreateUser.cp.$error.number">Ingresa un código postal válido</label>
+							<label class="lblError" ng-show="frmCreateUser.cp.$error.min || frmCreateUser.cp.$error.max">Ingresa un código postal válido</label>
+						</div>
+						-->
+						<span>Código Postal:</span>
+						<input  id="cp" name="cp" ng-model="user.cp" type="text" class="form-control" style="" placeholder="Código Postal">
 						<div ng-show="frmCreateUser.$submitted || frmCreateUser.cp.$touched">
 							<label class="lblError" ng-show="frmCreateUser.cp.$error.number">Ingresa un código postal válido</label>
 							<label class="lblError" ng-show="frmCreateUser.cp.$error.min || frmCreateUser.cp.$error.max">Ingresa un código postal válido</label>

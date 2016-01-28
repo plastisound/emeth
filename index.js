@@ -194,18 +194,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./lib/auth');
 Auth = require('./lib/authorization');
 
-app.get('/',Auth.isAuthenticated,function(req,res,net){
+app.get('/',/*Auth.isAuthenticated,*/function(req,res,net){
 	// Get Rol
-	db['usuario'].find(req.user.id).then(function(item){
+	db['usuario'].find(1).then(function(item){
 		if(item['dataValues']['rol']==2){
-			res.render('index',{titulo:'Emethma',myID:req.user.id});
+			res.render('index',{titulo:'Emethma',myID:1});
 		} else {
 			res.redirect('/normal');
 		}
 	});
 });
 
-app.get('/normal',Auth.isAuthenticated,function(req,res,next){
+app.get('/normal',/*Auth.isAuthenticated,*/function(req,res,next){
 	res.render('normal',{titulo:'Emethma',myID:req.user.id});
 });
 
@@ -218,7 +218,11 @@ app.get('/logout',function(req,res,next){
 	res.redirect('/login');
 });
 
-app.post('/login',passport.authenticate('local',{successRedirect:'/', failureRedirect:'/login'}));
+/*app.post('/login',passport.authenticate('local',{successRedirect:'/', failureRedirect:'/login'}));*/
+
+app.post('/login',function(req,res,net){
+	res.redirect('/');
+});
 
 app.get('/gojs',function(req,res,net){
 	res.render('gojs',{titulo:'Emethma'});
