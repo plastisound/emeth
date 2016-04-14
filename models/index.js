@@ -9,8 +9,8 @@ require('sequelize-hierarchy')(Sequelize);
 
 if (process.env.NODE_ENV == 'production'){
   console.log('Production');
-  sequelize = new Sequelize('emethma', 'uaq', 'uaq12345', {
-    host: 'uaq2.ckxbcbonrr8q.us-west-2.rds.amazonaws.com', 
+  sequelize = new Sequelize('emethma', 'emethma', '3[hVRKbN*+', {
+    host: 'conricyt.cs8atrvkgeb4.us-west-2.rds.amazonaws.com', 
     dialect:  'mysql',
     logging: false,
     protocol: 'mysql',
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV == 'production'){
   });
 } else {
   console.log('Development');
-  sequelize = new Sequelize('emethma', 'uaq', 'uaq12345', {
+  sequelize = new Sequelize('emethma', 'emethma', '3[hVRKbN*+', {
     host: 'localhost',
     dialect:  'mysql',
     protocol: 'mysql',
