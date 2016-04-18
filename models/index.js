@@ -7,10 +7,19 @@ var fs        = require('fs')
 
 require('sequelize-hierarchy')(Sequelize);
 
-if (process.env.NODE_ENV == 'production'){
+/*if (process.env.NODE_ENV == 'production'){
   console.log('Production');
   sequelize = new Sequelize('emethma', 'emethma', '3[hVRKbN*+', {
     host: 'conricyt.cs8atrvkgeb4.us-west-2.rds.amazonaws.com', 
+    dialect:  'mysql',
+    logging: false,
+    protocol: 'mysql',
+    port:    3306 // or 5432 (for postgres),
+  });*/
+  if (process.env.NODE_ENV == 'production'){
+  console.log('Production');
+  sequelize = new Sequelize('kbufojdb_eme', 'kbufojdb_emdbusr', 'WMOx)oACch-d', {
+    host: 'earth.sinergiahosting.com', 
     dialect:  'mysql',
     logging: false,
     protocol: 'mysql',
