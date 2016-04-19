@@ -18,8 +18,8 @@ require('sequelize-hierarchy')(Sequelize);
   });*/
   if (process.env.NODE_ENV == 'production'){
   console.log('Production');
-  sequelize = new Sequelize('actaot9q_emetv1', 'actaot9q_usr1', 'T7w{l&weZGZr', {
-    host: 'actao.org.md-56.webhostbox.net:2082', 
+  sequelize = new Sequelize('sql3115911', 'sql3115911', 'hLgJe8fugz', {
+    host: 'sql3.freemysqlhosting.net', 
     dialect:  'mysql',
     logging: false,
     protocol: 'mysql',
